@@ -1,0 +1,12 @@
+{
+    "Welcome to React": "مرحبااااااااااااااا",
+    "Dashboard": "لوحة التحكم",
+    "Profile":"الشخصية",
+    "Settings":"الاعدادات",
+    "Logout":"تسجيل الخروج",
+    "home":"الرئيسية",
+    "Toggle theme":"تبديل الثيم",
+    "You can toggle the theme of your application between light or night mode":"تمكنك من تبديل الى الوضع الليلي او النهاري",
+    "Language":"اللغة",
+    "You can toggle the language of your application":"تمكنك من تبديل لغة التطبيق الى اللغة الانكليزية"
+}

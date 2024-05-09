@@ -1,0 +1,62 @@
+.sidebar-link {
+    &.openSmall {
+        @apply flex-row;
+
+        div {
+            &:first-child {
+                @apply flex flex-row;
+
+                h5 {
+                    @apply block;
+                }
+            }
+
+            &:nth-child(2) {
+                @apply flex;
+
+            }
+
+        }
+
+        .tooltip {
+            @apply invisible;
+        }
+    }
+
+    &.halfOpen {
+        @apply flex-row-reverse;
+
+        div {
+            &:first-child {
+                @apply flex flex-row mx-auto;
+
+                h5 {
+                    @apply hidden;
+                }
+            }
+
+            &:nth-child(2) {
+                @apply invisible;
+
+            }
+
+        }
+
+        &:hover {
+            .tooltip {
+                @apply visible;
+            }
+        }
+
+    }
+
+    &.open {
+        @apply flex-row;
+
+        div {
+            &:first-child {
+                @apply flex
+            }
+        }
+    }
+}

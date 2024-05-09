@@ -1,0 +1,40 @@
+.sidebar {
+    &.openSmall {
+        @apply w-64;
+
+        .sidebar-content {
+            @apply pr-3 pl-3;
+
+            .sidebar-head {
+                @apply flex-row pr-1 pl-1 pt-1 mb-6;
+            }
+
+            .notification {
+                // @apply visible;
+            }
+        }
+
+    }
+
+    &.halfOpen {
+        @apply w-16;
+
+        .sidebar-head {
+            @apply flex-col p-0 mb-2 gap-3;
+
+            h1 {
+                @apply hidden
+            }
+
+            .notification {
+                // @apply invisible
+            }
+        }
+    }
+
+    &.open {
+        .sidebar-head {
+            @apply mb-6;
+        }
+    }
+}

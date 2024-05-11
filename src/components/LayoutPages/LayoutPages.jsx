@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../Sidebar/Sidebar";
-import "./LayoutPages.scss";
 import { CgMenuLeft } from "react-icons/cg";
 import { FiBell } from "react-icons/fi";
-import { changeLanguage } from "../../lang";
 import { useLocation } from "react-router-dom";
 import BreadcrumbContext from "../BreadcrumbContext/BreadcrumbContext";
-import { useTranslation } from "react-i18next";
+import Sidebar from "../Sidebar/Sidebar";
+import "./LayoutPages.scss";
 
 const md = 768;
 const lg = 1024;
@@ -18,13 +16,11 @@ const getNavbarStatus = () => {
 };
 
 export default function LayoutPages({ children }) {
-  const { t} = useTranslation()
   const location = useLocation();
   const [sidebarState, setSidebarState] = useState(getNavbarStatus);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
-      // setWinWidth(window.innerWidth);
       setSidebarState(getNavbarStatus);
     });
   }, []);
@@ -81,11 +77,7 @@ export default function LayoutPages({ children }) {
         <div
           className={`flex flex-col gap-3 md:my-4 bg-slate-200 dark:bg-gray-900 w-full rounded-lg p-2 md:p-4 overflow-x-hidden`}
         >
-          <BreadcrumbContext
-            locations={[
-              { name: t("Dashboard"), url: "/dashboard" },
-            ]}
-          />
+          <BreadcrumbContext />
           {children}
         </div>
       </div>

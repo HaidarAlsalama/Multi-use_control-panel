@@ -1,0 +1,14 @@
+{
+    "Welcome to React": "Welcome to React and react-i18next",
+    "Dashboard": "Dashboard",
+    "Profile": "Profile",
+    "Settings": "Settings",
+    "Logout": "Logout",
+    "home": "home",
+    "Toggle theme": "Toggle theme",
+    "You can toggle the theme of your application between light or night mode": "You can toggle between light or night mode",
+    "Language": "Language",
+    "You can toggle the language of your application": "You can toggle the language of your application to arabic",
+    "list_1":"list_1",
+    "list_2":"list_2"
+}

@@ -9,23 +9,23 @@ import "./Sidebar.scss";
 import GroupLinks from "./sidebarCompo/SidebarGroupLinks/SidebarGroupLinks.component";
 
 const listLinks = [
-  { title: "Dashboard", url: "/", icon: LuLayoutDashboard },
-  { title: "home", url: "/home", icon: LuLayoutList },
+  { title: "Dashboard", url: "/dashboard", icon: LuLayoutDashboard },
+  { title: "Home", url: "/dashboard/home", icon: LuLayoutList },
   {
-    title: "home",
+    title: "Lists",
     url: "#",
     icon: LuLayoutList,
     type: "list",
     content: [
-      { title: "list_1", url: "/test-1", icon: LuLayoutDashboard },
-      { title: "list_2", url: "/#", icon: LuLayoutList },
+      { title: "List_1", url: "/dashboard/test-1", icon: LuLayoutDashboard },
+      { title: "List_2", url: "/dashboard/#", icon: LuLayoutList },
     ],
   },
 ];
 
 const listLinks2 = [
-  { title: "Profile", url: "#", icon: FaRegSmile },
-  { title: "Settings", url: "/settings", icon: PiGearBold },
+  { title: "Profile", url: "/dashboard/#", icon: FaRegSmile },
+  { title: "Settings", url: "/dashboard/settings", icon: PiGearBold },
   { title: "Logout", url: "#", icon: MdLogout },
 ];
 
@@ -49,7 +49,7 @@ export default function Sidebar({ sidebarState, handleStateSidebar }) {
             className={`w-full flex md:flex-col lg:flex-row items-center justify-between overflow-hidden  sidebar-head`}
           >
             <button
-              className="text-2xl hover:bg-red-600 hover:text-white rounded-md p-2 duration-200 text-gray-600 dark:text-gray-300 dark:hover:bg-blue-600"
+              className="text-xl hover:bg-red-600 hover:text-white rounded-md p-2 duration-200 text-gray-600 dark:text-gray-300 dark:hover:bg-blue-600"
               onClick={handleStateSidebar}
             >
               <CgMenuLeft />
@@ -58,7 +58,7 @@ export default function Sidebar({ sidebarState, handleStateSidebar }) {
               Rings
             </h1>
             <button
-              className={`relative invisible_ lg:visible text-2xl hover:bg-red-600 hover:text-white rounded-md p-2 duration-200 text-gray-600 dark:text-gray-300 dark:hover:bg-blue-600 notification`}
+              className={`relative invisible_ lg:visible text-xl hover:bg-red-600 hover:text-white rounded-md p-2 duration-200 text-gray-600 dark:text-gray-300 dark:hover:bg-blue-600 notification`}
             >
               <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 border-2 border-white rounded-full -top-[2px] -left-[2px] dark:border-gray-900 dark:bg-blue-600">
                 2

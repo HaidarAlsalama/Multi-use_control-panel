@@ -1,7 +1,7 @@
 .sidebar-list-link {
     &.openSmall {
         .sidebar-list-link-header {
-            @apply flex-row;
+            @apply flex-row  ltr:pr-2 rtl:pl-2;
 
             div {
                 &:first-child {
@@ -57,7 +57,7 @@
     &.open {
         .sidebar-list-link-header {
 
-            @apply flex-row;
+            @apply flex-row ltr:pr-2 rtl:pl-2;
 
             div {
                 &:first-child {

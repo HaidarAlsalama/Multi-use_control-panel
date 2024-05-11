@@ -1,9 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { HiOutlineLanguage } from "react-icons/hi2";
 import { IoColorPaletteOutline } from "react-icons/io5";
-import { BreadcrumbContext } from "../../components";
-import NavigationCard from "../../components/NavigationCard/NavigationCard";
-import { changeLanguage } from "../../lang";
+import NavigationCard from "../../../components/NavigationCard/NavigationCard";
+import { changeLanguage } from "../../../lang";
 
 const cards = [
   {
@@ -40,15 +38,8 @@ const cards = [
 ];
 
 export default function Settings() {
-  const { t } = useTranslation();
   return (
     <>
-      <BreadcrumbContext
-        locations={[
-          { name: t("Dashboard"), url: "/dashboard" },
-          { name: t("Settings"), url: "/settings" },
-        ]}
-      />
       <div className="flex gap-6 w-full flex-wrap justify-center md:justify-start h-fit">
         {cards.map((card, index) => (
           <NavigationCard data={card} key={index} />

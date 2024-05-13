@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createAlert } from "../../../components/Alert/Alert";
 import BarChart from "../../../components/Charts/BarChart";
 import LineChart from "../../../components/Charts/LineChart";
-// import LineChart from "../../components/Charts/LineChart";
+
 import io from "socket.io-client";
 const socket = io("https://byrings.sy/"); // تغيير الرابط حسب عنوان الخادم
 

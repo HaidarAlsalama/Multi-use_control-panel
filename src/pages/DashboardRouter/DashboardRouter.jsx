@@ -6,6 +6,7 @@ const Settings = lazy(() => import("./Settings/Settings"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const Error404 = lazy(() => import("../errors/Error404/Error404"));
 // import Error404 from "../errors/Error404/Error404";
+
 /** @todo convert lazyLoading to external function to use */
 
 export default function DashboardRouter() {

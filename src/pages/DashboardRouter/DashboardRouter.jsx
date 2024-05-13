@@ -1,10 +1,12 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import { LayoutPage, Spinner } from "../../components";
 import { useLocation } from "react-router-dom";
-// import Dashboard from "./Dashboard/Dashboard";
-import { Error404 } from "./../errors";
+
 const Settings = lazy(() => import("./Settings/Settings"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
+const Error404 = lazy(() => import("../errors/Error404/Error404"));
+// import Error404 from "../errors/Error404/Error404";
+/** @todo convert lazyLoading to external function to use */
 
 export default function DashboardRouter() {
   const location = useLocation();

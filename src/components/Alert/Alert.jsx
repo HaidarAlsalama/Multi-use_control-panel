@@ -82,11 +82,30 @@ export const createAlert = (messageStatus, messageInfo, navigate = null) => {
     }, 900);
   });
 
-  setTimeout(() => {
+  let time2;
+  let time1 = setTimeout(() => {
     alertBody.classList.add("translate-x-full");
-    setTimeout(() => {
+    time2 = setTimeout(() => {
       alertBody.remove();
     }, 900);
   }, 5000);
+
+  const clearTimeoutId = () => {
+    clearTimeout(time1);
+    clearTimeout(time2);
+  };
+
+  alertBody.addEventListener("mouseenter", clearTimeoutId);
+
+  alertBody.addEventListener("mouseleave", () => {
+    clearTimeoutId();
+    time1 = setTimeout(() => {
+      alertBody.classList.add("translate-x-full");
+      time2 = setTimeout(() => {
+        alertBody.remove();
+      }, 900);
+    }, 5000);
+  });
+  
 };
 export default Alert;

@@ -25,7 +25,7 @@
         }
 
         .list {
-            @apply ml-4
+            @apply ltr:ml-4 rtl:mr-4
         }
 
     }

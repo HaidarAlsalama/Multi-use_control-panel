@@ -7,6 +7,7 @@ import { PiGearBold } from "react-icons/pi";
 
 import "./Sidebar.scss";
 import GroupLinks from "./sidebarCompo/SidebarGroupLinks/SidebarGroupLinks.component";
+import { useSelector } from "react-redux";
 
 const listLinks = [
   { title: "Dashboard", url: "/dashboard", icon: LuLayoutDashboard },
@@ -29,7 +30,9 @@ const listLinks2 = [
   { title: "Logout", url: "#", icon: MdLogout },
 ];
 
-export default function Sidebar({ sidebarState, handleStateSidebar }) {
+export default function Sidebar({ handleStateSidebar }) {
+  const sidebarState = useSelector((state) => state.layoutState);
+
   return (
     <>
       {sidebarState == "openSmall" ? (
@@ -66,8 +69,8 @@ export default function Sidebar({ sidebarState, handleStateSidebar }) {
               <FiBell />
             </button>
           </div>
-          <GroupLinks list={listLinks} sidebarState={sidebarState} />
-          <GroupLinks list={listLinks2} sidebarState={sidebarState} />
+          <GroupLinks list={listLinks} />
+          <GroupLinks list={listLinks2} />
         </div>
       </aside>
     </>

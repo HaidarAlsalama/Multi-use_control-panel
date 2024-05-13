@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 
 import "./SidebarLink.scss";
-export default function SidebarLink({ item, sidebarState }) {
+import { useSelector } from "react-redux";
+export default function SidebarLink({ item }) {
+  const sidebarState = useSelector((state) => state.layoutState);
   const { t } = useTranslation();
   const location = useLocation();
   const [showTooltip, setShowTooltip] = useState(false);

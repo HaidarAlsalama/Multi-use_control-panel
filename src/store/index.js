@@ -1,7 +1,10 @@
-import { createStore } from "redux";
-import layoutReducer from "./reducers/layoutReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import layoutSlice from "./reducers/layoutReducer";
 
-const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-const store = createStore(layoutReducer, enhancer())
+const store = configureStore({
+  reducer: {
+    layout: layoutSlice,
+  },
+});
 
-export default store
+export default store;

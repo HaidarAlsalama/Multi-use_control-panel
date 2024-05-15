@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./SidebarLink.scss";
 import { useSelector } from "react-redux";
 export default function SidebarLink({ item }) {
-  const sidebarState = useSelector((state) => state.layoutState);
+  const sidebarState = useSelector((state) => state.layout.layoutState);
   const { t } = useTranslation();
   const location = useLocation();
   const [showTooltip, setShowTooltip] = useState(false);

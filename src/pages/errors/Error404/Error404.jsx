@@ -5,15 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Error404({ navigateTo, timer = null }) {
   const {t} = useTranslation()
   const navigate = useNavigate();
-  useEffect(() => {
+ useEffect(() => {
+    let timeOut;
+
     if (timer != null) {
-      setTimeout(() => {
-        setTimeout(() => {
-          navigate(navigateTo);
-        }, 10000);
-      });
+      timeOut = setTimeout(() => {
+        navigate(navigateTo);
+      }, 10000);
     }
-  }, []);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [timer, navigateTo, navigate]);
   return (
     <div className="flex self-start justify-center items-center w-full md:p-2 mt-5 ">
       <section className="w-full max-w-5xl p-6 flex flex-col items-center gap-5">

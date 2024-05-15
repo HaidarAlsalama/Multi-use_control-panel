@@ -31,7 +31,7 @@ const listLinks2 = [
 ];
 
 export default function Sidebar({ handleStateSidebar }) {
-  const sidebarState = useSelector((state) => state.layoutState);
+  const sidebarState = useSelector((state) => state.layout.layoutState);
 
   return (
     <>

@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 export default function SidebarListLinks({ list }) {
-  const sidebarState = useSelector((state) => state.layoutState);
+  const sidebarState = useSelector((state) => state.layout.layoutState);
   const location = useLocation();
   const { t } = useTranslation();
   const [openList, setOpenList] = useState(false);

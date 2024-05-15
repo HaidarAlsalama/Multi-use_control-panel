@@ -9,7 +9,7 @@ const Alert = () => {
   );
 };
 
-export const createAlert = (messageStatus, messageInfo, navigate = null) => {
+export const createAlert = (messageStatus, messageInfo, navigate = null, dispatch) => {
   const alertAria = document.querySelector("#notificationsAria");
   const alertBody =
     navigate == null
@@ -18,6 +18,7 @@ export const createAlert = (messageStatus, messageInfo, navigate = null) => {
   if (navigate != null) {
     alertBody.setAttribute("href", navigate);
   }
+
 
   const h5 = document.createElement("h5");
   h5.setAttribute("class", "font-bold");

@@ -4,9 +4,11 @@ import BarChart from "../../../components/Charts/BarChart";
 import LineChart from "../../../components/Charts/LineChart";
 
 import io from "socket.io-client";
+import { useDispatch } from "react-redux";
 const socket = io("https://byrings.sy/"); // تغيير الرابط حسب عنوان الخادم
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
   const [postData, setPostData] = useState(null);
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function Dashboard() {
             </div>
           )}
         </div>
-        <div onClick={() => createAlert("ss", "ss", "/dashboard/settings")}>
+        <div onClick={() => createAlert("ss", "ss", "/dashboard/settings", dispatch)}>
           ++
         </div>
       </div>

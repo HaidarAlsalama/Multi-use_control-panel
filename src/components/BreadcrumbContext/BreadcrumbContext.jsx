@@ -4,7 +4,7 @@ import { RiArrowDropLeftFill, RiArrowDropRightFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import sitemap from "./../../config/siteMap.json";
 export default function BreadcrumbContext() {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const location = useLocation();
   const [locationLine, setLocationLine] = useState([]);
 

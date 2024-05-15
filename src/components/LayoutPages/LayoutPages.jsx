@@ -1,21 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import {
-  closeLayoutAction,
-  halfOpenLayoutAction,
-  openLayoutAction,
-  openSmallLayoutAction,
-} from "../../store/actions/layoutActions";
 import BreadcrumbContext from "../BreadcrumbContext/BreadcrumbContext";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import { _lg_size, _md_size } from "./../../config/layoutSizes";
+import { close, open, openHalf, openSmall } from './../../store/reducers/layoutReducer';
 import "./LayoutPages.scss";
 
 export default function LayoutPages({ children }) {
-  const { layoutState } = useSelector((state) => state);
-  const despatch = useDispatch();
+  const { layoutState } = useSelector((state) => state.layout);
+  const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
@@ -30,35 +25,35 @@ export default function LayoutPages({ children }) {
 
   useEffect(() => {
     if (window.innerWidth < _md_size)
-      /*setSidebarState("close")*/ despatch(closeLayoutAction());
+      /*setSidebarState("close")*/ dispatch(close());
     if (window.innerWidth > _md_size && window.innerWidth < _lg_size)
-      /*setSidebarState("halfOpen");*/ despatch(halfOpenLayoutAction());
+      /*setSidebarState("halfOpen");*/ dispatch(openHalf());
   }, [location]);
 
   const handleStateSidebar = () => {
     if (window.innerWidth >= _lg_size) {
       if (layoutState == "open")
-        /*setSidebarState("halfOpen")*/ despatch(halfOpenLayoutAction());
+        /*setSidebarState("halfOpen")*/ dispatch(openHalf());
       if (layoutState == "halfOpen")
-        /*setSidebarState("open")*/ despatch(openLayoutAction());
+        /*setSidebarState("open")*/ dispatch(open());
     } else if (window.innerWidth < _lg_size && window.innerWidth >= _md_size) {
       if (layoutState == "openSmall")
-        /*setSidebarState("halfOpen")*/ despatch(halfOpenLayoutAction());
+        /*setSidebarState("halfOpen")*/ dispatch(openHalf());
       if (layoutState == "halfOpen")
-        /*setSidebarState("openSmall")*/ despatch(openSmallLayoutAction());
+        /*setSidebarState("openSmall")*/ dispatch(openSmall());
     } else if (window.innerWidth < _md_size) {
       if (layoutState == "close")
-        /*setSidebarState("openSmall")*/ despatch(openSmallLayoutAction());
+        /*setSidebarState("openSmall")*/ dispatch(openSmall());
       if (layoutState == "openSmall")
-        /*setSidebarState("close")*/ despatch(closeLayoutAction());
+        /*setSidebarState("close")*/ dispatch(close());
     }
   };
 
   const getSidebarState = () => {
-    if (window.innerWidth >= _lg_size) despatch(openLayoutAction());
+    if (window.innerWidth >= _lg_size) dispatch(open());
     else if (window.innerWidth < _lg_size && window.innerWidth >= _md_size)
-      despatch(halfOpenLayoutAction());
-    else if (window.innerWidth < _md_size) despatch(closeLayoutAction());
+      dispatch(openHalf());
+    else if (window.innerWidth < _md_size) dispatch(close());
   };
 
   return (

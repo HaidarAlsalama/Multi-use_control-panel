@@ -4,7 +4,7 @@ import { OPEN, HALF_OPEN, OPEN_SMALL, CLOSE } from "./../actions/types";
 import { _md_size, _lg_size } from "./../../config/layoutSizes";
 
 const handleCurrentLayoutState = () => {
-  console.log("from", "handleCurrentLayoutState");
+  // console.log("from", "handleCurrentLayoutState");
 
   if (window.innerWidth < _md_size) return { layoutState: CLOSE };
   if (window.innerWidth > _md_size && window.innerWidth < _lg_size)

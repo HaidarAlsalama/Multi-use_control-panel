@@ -1,52 +1,36 @@
-import { Link, Route, Routes } from "react-router-dom";
-import "./App.scss";
-import { LayoutPage, Spinner, ThemeToggle } from "./components";
-// import Dashboard from "./pages/Dashboard/Dashboard";
-import { changeLanguage, i18nConfig } from "./lang";
-// import Settings from "./pages/Settings/Settings";
-import { Suspense, lazy, useEffect } from "react";
-// import Testing_1 from "./pages/Testing/Testing_1";
-import Alert from "./components/Alert/Alert";
-import { Error404 } from "./pages/errors";
+import Alert from "components/Alert/Alert";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
+import ClientRoutes from "routes/ClientRoutes";
+import PublicRoutes from "routes/PublicRoutes";
+import "./App.css";
+import PrivateRoutes from "routes/PrivateRoutes";
 
-const DashboardRouter = lazy(() =>
-  import("./pages/DashboardRouter/DashboardRouter")
-);
 
 function App() {
+  const { role } = useSelector((state) => state.auth);
+  const location = useLocation()
+
   useEffect(() => {
-    if (localStorage.getItem("lang") == "ar") {
-      document.documentElement.lang = "ar";
-      document.documentElement.dir = "rtl";
-      changeLanguage("ar");
-    } else {
-      document.documentElement.lang = "en";
-      document.documentElement.dir = "ltr";
-      changeLanguage("en");
-    }
-  }, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [location]);
 
   return (
     <>
+      {/* <IdleTimer /> */}
       <Routes>
-        <Route
-          path="/"
-          element={<Link to={"/dashboard"}>go to dashboard</Link>}
-        />
-        <Route
-          path="/dashboard/*"
-          element={
-            <Suspense fallback={<Spinner page />}>
-              <DashboardRouter />
-            </Suspense>
-          }
-        />
-        <Route path="*" element={<Error404 navigateTo={'/'} timer={10000}/>} />
+        <Route path="/dashboard/*" element={<PrivateRoutes />} />
+        <Route path="/my-account/*" element={<ClientRoutes />} />
+        <Route path="/*" element={<PublicRoutes />} />
       </Routes>
-      <ThemeToggle />
       <Alert />
     </>
   );
 }
 
 export default App;
+

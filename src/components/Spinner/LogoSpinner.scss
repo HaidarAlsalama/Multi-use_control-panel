@@ -1,0 +1,19 @@
+@keyframes logo-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: drop-shadow(0 0 0px rgba(171, 135, 50, 0));
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 18px rgba(171, 135, 50, 0.55));
+    transform: scale(1.07);
+  }
+}
+
+/* كلاس جاهز للاستخدام */
+.logo-glow {
+  animation: logo-glow 1.8s ease-in-out infinite;
+}

@@ -1,0 +1,15 @@
+.quill {
+  @apply bg-gray-100  rounded-md mt-2 shadow-md;
+  .ql-toolbar {
+    @apply flex justify-center rounded-t-md dark:bg-gray-400 border-zinc-800 border-b-2 border-t-0 border-r-0 border-l-0;
+    .ql-formats {
+      button {
+        @apply text-white;
+        color: white !important;
+      }
+    }
+  }
+  .ql-container {
+    @apply border-2 border-zinc-800 border-none dark:bg-gray-800;
+  }
+}

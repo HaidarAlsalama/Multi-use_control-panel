@@ -1,0 +1,33 @@
+html {
+  @apply bg-zinc-800;
+}
+
+// @keyframes scale-in {
+//   from {
+//     transform: scale(0.8);
+//     opacity: 0;
+//   }
+//   to {
+//     transform: scale(1);
+//     opacity: 1;
+//   }
+// }
+
+// @keyframes scale-out {
+//   from {
+//     transform: scale(1);
+//     opacity: 1;
+//   }
+//   to {
+//     transform: scale(0.8);
+//     opacity: 0;
+//   }
+// }
+
+// ::view-transition-old(root) {
+//   animation: 300ms ease-in-out both scale-out;
+// }
+
+// ::view-transition-new(root) {
+//   animation: 300ms ease-in-out both scale-in;
+// }

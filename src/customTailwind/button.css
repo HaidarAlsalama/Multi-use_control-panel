@@ -1,0 +1,87 @@
+.btn {
+  @apply flex gap-2 items-center justify-center py-1.5 px-2 font-semibold shadow rounded-lg text-sm disabled:cursor-not-allowed;
+}
+
+/* Variants */
+.btn.btn-danger {
+  @apply text-white bg-red-600;
+}
+.btn.btn-danger:hover {
+  @apply bg-red-600;
+}
+
+.btn.btn-success {
+  @apply text-white bg-green-600;
+}
+.btn.btn-success:hover {
+  @apply bg-green-700;
+}
+
+.btn.btn-primary {
+  @apply text-white bg-blue-600;
+}
+.btn.btn-primary:hover {
+  @apply bg-blue-700;
+}
+
+.btn.btn-secondary {
+  @apply text-white bg-gray-600;
+}
+.btn.btn-secondary:hover {
+  @apply bg-gray-700;
+}
+
+.btn.btn-warning {
+  @apply text-white bg-yellow-600;
+}
+.btn.btn-warning:hover {
+  @apply bg-yellow-700;
+}
+
+.btn.btn-info {
+  @apply text-white bg-cyan-600;
+}
+.btn.btn-info:hover {
+  @apply bg-cyan-700;
+}
+
+.btn.btn-light {
+  @apply text-black bg-white;
+}
+.btn.btn-light:hover {
+  @apply bg-gray-300;
+}
+
+.btn.btn-black {
+  @apply text-white bg-black;
+}
+.btn.btn-black:hover {
+  @apply bg-gray-800;
+}
+
+.btn.btn-dark {
+  @apply text-white bg-gray-700;
+}
+.btn.btn-dark:hover {
+  @apply bg-gray-600;
+}
+
+.btn.btn-smart {
+  @apply text-white bg-green-500 duration-300;
+}
+.btn.btn-smart:hover {
+  @apply bg-green-600;
+}
+
+/* Sizes */
+.btn.btn-sm {
+  @apply text-xs py-1 px-1.5;
+}
+
+/* Disabled */
+.btn:disabled {
+  @apply bg-gray-400;
+}
+.btn:disabled:hover {
+  @apply bg-gray-400;
+}

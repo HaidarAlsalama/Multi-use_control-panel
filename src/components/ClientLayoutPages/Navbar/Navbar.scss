@@ -1,0 +1,15 @@
+nav {
+    .dropdown {
+        // &:hover{background-color: aqua;}
+        .dropdownNavbar {
+            display: none;
+            position: absolute;
+        }
+
+        &:hover {
+            .dropdownNavbar {
+                display: block;
+            }
+        }
+    }
+}

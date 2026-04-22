@@ -3,110 +3,95 @@ import React from "react";
 const Alert = () => {
   return (
     <div
-      className="notifications overflow-hidden pb-2 fixed right-2 top-2 z-50 w-72 md:w-96 flex flex-col gap-2"
+      // تم إضافة gap-4 و w-full مع max-w للتحكم بالعرض
+      className="notifications fixed right-4 top-4 z-[9999] flex flex-col gap-4 w-[calc(100%-2rem)] md:w-auto pointer-events-none"
       id="notificationsAria"
     ></div>
   );
 };
 
-export const createAlert = (messageStatus, messageInfo, navigate = null, dispatch) => {
+export const createAlert = (
+  messageStatus,
+  messageInfo,
+  navigate = null,
+  dispatch
+) => {
   const alertAria = document.querySelector("#notificationsAria");
+  if (!alertAria) return;
+
   const alertBody =
     navigate == null
       ? document.createElement("div")
       : document.createElement("a");
-  if (navigate != null) {
-    alertBody.setAttribute("href", navigate);
-  }
+  if (navigate != null) alertBody.setAttribute("href", navigate);
 
+  const icons = {
+    error: "✕",
+    success: "✓",
+    warning: "!",
+    info: "i",
+  };
 
-  const h5 = document.createElement("h5");
-  h5.setAttribute("class", "font-bold");
+  const statusKey = messageStatus.toLowerCase();
 
-  const span = document.createElement("span");
+  // تصميم داخلي مع Padding أكبر ومساحة أوسع للنص
+  alertBody.innerHTML = `
+    <div class="flex items-center gap-4 w-full">
+      <div class="alert-icon flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center border-2 border-current shadow-inner font-bold text-lg">
+        ${icons[statusKey] || "•"}
+      </div>
+      <div class="flex flex-col flex-1">
+        <h5 class="font-bold !text-[14px] m-0 tracking-tight leading-none mb-1">
+          ${
+            statusKey === "error"
+              ? document.documentElement.lang === "ar"
+                ? "خطأ في النظام"
+                : "System Error"
+              : statusKey === "success"
+              ? document.documentElement.lang === "ar"
+                ? "تمت العملية"
+                : "Success Action"
+              : statusKey === "warning"
+              ? document.documentElement.lang === "ar"
+                ? "تنبيه"
+                : "Warning"
+              : "إشعار"
+          }
+        </h5>
+        <p class="!text-[13px] opacity-90 m-0 leading-tight font-medium">${messageInfo}</p>
+      </div>
+    </div>
+  `;
 
-  h5.innerHTML =
-    messageStatus.toLowerCase() == "error"
-      ? document.documentElement.lang == "ar"
-        ? "خطأ"
-        : "Error"
-      : messageStatus.toLowerCase() == "success"
-      ? document.documentElement.lang == "ar"
-        ? "نجاح"
-        : "Success"
-      : messageStatus.toLowerCase() == "warning"
-      ? document.documentElement.lang == "ar"
-        ? "تحذير"
-        : "Warning"
-      : document.documentElement.lang == "ar"
-      ? "اشعار"
-      : "Notification";
-
-  span.innerHTML = messageInfo;
-  alertBody.appendChild(h5);
-  alertBody.appendChild(span);
+  // إضافة classes العرض الجديد
   alertBody.setAttribute(
     "class",
-    "alert translate-x-full duration-1000 flex flex-col flex-start mb-2 z-50"
+    `alert translate-x-full pointer-events-auto alert-${
+      statusKey === "error" ? "danger" : statusKey
+    } w-full md:w-[400px]`
   );
 
-  // قائمة الألوان المتاحة ومطابقتها بناءً على messageStatus
-  const colorMap = {
-    Error: "alert-danger",
-    Success: "alert-success",
-    Info: "alert-info",
-    Warning: "alert-warning",
-    Dark: "alert-dark",
-    Light: "alert-light",
-    Primary: "alert-primary",
-    Secondary: "alert-secondary",
-  };
-
-  const messageStatusClass = colorMap[messageStatus];
-
-  if (messageStatusClass) {
-    alertBody.classList.add(messageStatusClass);
-  } else {
-    alertBody.classList.add("alert-primary");
-  }
-
-  // alertAria.appendChild(alertBody);
   alertAria.insertBefore(alertBody, alertAria.firstChild);
+
   setTimeout(() => {
     alertBody.classList.remove("translate-x-full");
-  }, 100);
+  }, 10);
 
-  alertBody.addEventListener("click", () => {
+  const closeAlert = () => {
     alertBody.classList.add("translate-x-full");
-    setTimeout(() => {
-      alertBody.remove();
-    }, 900);
-  });
-
-  let time2;
-  let time1 = setTimeout(() => {
-    alertBody.classList.add("translate-x-full");
-    time2 = setTimeout(() => {
-      alertBody.remove();
-    }, 900);
-  }, 5000);
-
-  const clearTimeoutId = () => {
-    clearTimeout(time1);
-    clearTimeout(time2);
+    setTimeout(() => alertBody.remove(), 700);
   };
 
-  alertBody.addEventListener("mouseenter", clearTimeoutId);
+  alertBody.addEventListener("click", closeAlert);
 
-  alertBody.addEventListener("mouseleave", () => {
-    clearTimeoutId();
-    time1 = setTimeout(() => {
-      alertBody.classList.add("translate-x-full");
-      time2 = setTimeout(() => {
-        alertBody.remove();
-      }, 900);
-    }, 5000);
-  });
-  
+  let timer;
+  const startTimer = () => {
+    timer = setTimeout(closeAlert, 5000);
+  };
+  alertBody.addEventListener("mouseenter", () => clearTimeout(timer));
+  alertBody.addEventListener("mouseleave", startTimer);
+
+  startTimer();
 };
+
 export default Alert;

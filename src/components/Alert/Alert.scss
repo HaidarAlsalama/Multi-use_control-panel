@@ -1,11 +1,16 @@
+/* Alert.scss */
 .notifications {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1999;
-    
-    div {
-        width: 300px;
-        cursor:not-allowed;
-    }
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  div,
+  a {
+    width: 300px;
+    cursor: pointer; /* غيرتها من not-allowed لأن التنبيه قابل للنقر للإغلاق */
+  }
 }

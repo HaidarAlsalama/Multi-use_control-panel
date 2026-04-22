@@ -1,0 +1,38 @@
+// .layout {
+//     &.close {
+//         grid-template-rows: min-content auto;
+//     }
+
+//     &.openSmall {
+//         grid-template-rows: min-content auto;
+//     }
+
+//     &.halfOpen {
+//         @apply ltr:ml-16 rtl:mr-16;
+//     }
+
+//     &.open {}
+// }
+
+.layout {
+    &.close {
+        grid-template-rows: min-content auto;
+    }
+
+    &.openSmall {
+        // لا يتم تطبيق أي تنسيق هنا بشكل مباشر
+    }
+
+    &.halfOpen {
+        @apply ltr:ml-16 rtl:mr-16;
+    }
+
+    &.open {}
+
+    // استخدام استعلام الوسائط لتطبيق التنسيق عند عرض الشاشة أقل من 768 بكسل
+    @media (max-width: 767px) {
+        &.openSmall {
+            grid-template-rows: min-content auto;
+        }
+    }
+}

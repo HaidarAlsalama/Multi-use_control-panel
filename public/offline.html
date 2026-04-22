@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>أنت غير متصل</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Tajawal", sans-serif;
+        background-color: #27272a;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 90%;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+        color: #ccc;
+        margin-bottom: 2rem;
+      }
+
+      button {
+        background-color: #1e88e5;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #1565c0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="/logo192.png" />
+      <h1>لا يوجد اتصال بالإنترنت</h1>
+      <p>يبدو أنك غير متصل حالياً. تأكد من اتصالك وحاول مرة أخرى.</p>
+      <button onclick="window.location.reload()">إعادة المحاولة</button>
+    </div>
+  </body>
+</html>

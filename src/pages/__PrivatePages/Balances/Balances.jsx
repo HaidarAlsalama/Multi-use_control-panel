@@ -7,7 +7,7 @@ export default function BalancesPage() {
   const navigate = useNavigate();
 
   const openLedger = (type, id) => {
-    navigate(`/admin/ledger?type=${type}&id=${id}`);
+    navigate(`/dashboard/ledger?type=${type}&id=${id}`);
   };
 
   if (isLoading) {
@@ -56,7 +56,7 @@ export default function BalancesPage() {
             الموردين
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
             {data.suppliers.map((item) => (
               <button
                 key={item.id}
@@ -89,7 +89,7 @@ export default function BalancesPage() {
             الصناديق
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
             {data.cashboxes.map((item) => (
               <button
                 key={item.id}
@@ -123,7 +123,7 @@ export default function BalancesPage() {
               {category.parent_name}
             </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {category.items.map((item) => (
                 <button
                   key={item.id}
@@ -158,7 +158,7 @@ export default function BalancesPage() {
               {categoryName}
             </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {products.map((item) => (
                 <button
                   key={item.id}

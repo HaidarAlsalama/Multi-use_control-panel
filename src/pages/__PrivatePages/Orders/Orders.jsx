@@ -5,9 +5,7 @@ import InputSearch from "components/InputField/InputSearch";
 import InputSelect from "components/InputField/InputSelect";
 import OrderModal from "components/Modal/Admin/OrderModal/OrderModal";
 import { useState } from "react";
-import { RiFileExcel2Line } from "react-icons/ri";
 import { TiInfoLarge } from "react-icons/ti";
-import * as XLSX from "xlsx";
 
 export default function Orders() {
   const [isOpenOrderInfoModal, setIsOpenOrderInfoModal] = useState(false);
@@ -20,7 +18,7 @@ export default function Orders() {
   const [searchValue, setSearchValue] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("pending");
 
   const {
     data: chargeStatements,
@@ -36,40 +34,40 @@ export default function Orders() {
     toDate,
   );
 
-  const exportToExcel = () => {
-    if (!chargeStatements || chargeStatements?.data?.orders.length === 0)
-      return;
-    // البيانات المعروضة في الجدول مع أسماء الأعمدة العربية
-    const formattedData = chargeStatements?.data?.orders.map((item) => ({
-      "#": item.id,
-      "اسم المركز": item.center_name,
-      المبلغ: Number(Math.abs(item.total)).toLocaleString(),
-      الخدمة: item.service,
-      المعلومات: item.info,
-      "تاريخ الإنشاء": item.created_at,
-      الحالة:
-        item.order_state === "pending"
-          ? "انتظار"
-          : item.order_state === "completed"
-            ? "مكتمل"
-            : item.order_state === "canceled"
-              ? "مرفوضة"
-              : "- - - -",
-    }));
+  // const exportToExcel = () => {
+  //   if (!chargeStatements || chargeStatements?.data?.orders.length === 0)
+  //     return;
+  //   // البيانات المعروضة في الجدول مع أسماء الأعمدة العربية
+  //   const formattedData = chargeStatements?.data?.orders.map((item) => ({
+  //     "#": item.id,
+  //     "اسم المركز": item.center_name,
+  //     المبلغ: Number(Math.abs(item.total)).toLocaleString(),
+  //     الخدمة: item.service,
+  //     المعلومات: item.info,
+  //     "تاريخ الإنشاء": item.created_at,
+  //     الحالة:
+  //       item.order_state === "pending"
+  //         ? "انتظار"
+  //         : item.order_state === "completed"
+  //           ? "مكتمل"
+  //           : item.order_state === "canceled"
+  //             ? "مرفوضة"
+  //             : "- - - -",
+  //   }));
 
-    // إنشاء ورقة العمل باستخدام البيانات المعدلة
-    const worksheet = XLSX.utils.json_to_sheet(formattedData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  //   // إنشاء ورقة العمل باستخدام البيانات المعدلة
+  //   const worksheet = XLSX.utils.json_to_sheet(formattedData);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
 
-    // كتابة الملف إلى Excel
-    XLSX.writeFile(workbook, `طلبات الرصيد.xlsx`);
-  };
+  //   // كتابة الملف إلى Excel
+  //   XLSX.writeFile(workbook, `طلبات الرصيد.xlsx`);
+  // };
 
   return (
     <div className="flex flex-col gap-2 p-4 justify-between bg-gray-50 dark:bg-gray-800 h-full rounded-lg">
       <div className="flex flex-wrap gap-4">
-        <button
+        {/* <button
           disabled={
             !chargeStatements || chargeStatements?.data?.orders.length === 0
           }
@@ -78,7 +76,7 @@ export default function Orders() {
           title="تصدير Excel"
         >
           <RiFileExcel2Line />
-        </button>
+        </button> */}
         <select
           id="underline_select"
           className="block py-1 px-2 font-bold text-gray-600 dark:text-white cursor-pointer bg-white dark:bg-gray-700 dark:border-gray-600 border border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -142,23 +140,24 @@ export default function Orders() {
               <th scope="col" className="px-4 py-2 text-nowrap">
                 اسم المركز
               </th>
-              <th scope="col" className="px-4 py-2 text-nowrap">
-                المبلغ
-              </th>
+
               <th scope="col" className="px-4 py-2 text-nowrap">
                 الخدمة
               </th>
               <th scope="col" className="px-4 py-2 text-nowrap">
-                تاريخ الإنشاء
-              </th>
-              <th scope="col" className="px-4 py-2 text-nowrap">
-                معلومات الطلب
+                سعر الشراء
               </th>
               <th scope="col" className="px-4 py-2 text-nowrap">
                 الحالة
               </th>
               <th scope="col" className="px-4 py-2 text-nowrap  max-w-20">
                 التفاصيل
+              </th>
+              <th scope="col" className="px-4 py-2 text-nowrap">
+                المبلغ
+              </th>
+              <th scope="col" className="px-4 py-2 text-nowrap">
+                تاريخ الإنشاء
               </th>
             </tr>
           </thead>
@@ -174,23 +173,33 @@ export default function Orders() {
                 >
                   <td className="px-4 py-2 text-nowrap">{item.id} </td>
                   <td className="px-4 py-2 ">{item.center_name}</td>
-                  <td className="px-4 py-2 " dir="ltr">
-                    {Number(Math.abs(item.total)).toLocaleString()}{" "}
-                    <span
-                      className={`text-[10px] ${
-                        item?.currency_customer == "USD"
-                          ? "text-green-600"
-                          : "text-yellow-600"
-                      } font-extrabold mr-2`}
-                    >
-                      {item?.currency_customer}
-                    </span>
-                  </td>
+
                   <td className="px-4 py-2">
-                    <div className="min-w-56 m-auto">{item.service}</div>
+                    <div className="min-w-56 m-auto flex flex-col gap-1">
+                      <span className="">{item.service}</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {item.info}
+                      </span>
+                    </div>
                   </td>
-                  <td className="px-4 py-2 text-nowrap">{item.created_at}</td>
-                  <td className="px-4 py-2 text-nowrap">{item.info}</td>
+                  <td className="px-4 py-2 text-nowrap" dir="ltr">
+                    {item.purchase_total != null && item.purchase_total !== ""
+                      ? Number(item.purchase_total).toLocaleString()
+                      : "—"}
+                    {item.purchase_total != null &&
+                      item.purchase_total !== "" && (
+                        <span
+                          className={`text-[10px] ${
+                            item?.currency_customer == "USD"
+                              ? "text-green-600"
+                              : "text-yellow-600"
+                          } font-extrabold mr-2`}
+                        >
+                          {item?.currency_customer}
+                        </span>
+                      )}
+                  </td>
+
                   <td className="px-4 py-2 ">
                     <span
                       className={`font-semibold block m-auto text-xs p-1 rounded-lg w-14 ${
@@ -212,7 +221,6 @@ export default function Orders() {
                             : "- - - -"}
                     </span>
                   </td>
-
                   <td className="p-1">
                     <div className="flex gap-2 justify-center items-center p-1">
                       <button
@@ -227,6 +235,19 @@ export default function Orders() {
                       </button>
                     </div>
                   </td>
+                  <td className="px-4 py-2 " dir="ltr">
+                    {Number(Math.abs(item.total)).toLocaleString()}{" "}
+                    <span
+                      className={`text-[10px] ${
+                        item?.currency_customer == "USD"
+                          ? "text-green-600"
+                          : "text-yellow-600"
+                      } font-extrabold mr-2`}
+                    >
+                      {item?.currency_customer}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 text-nowrap">{item.created_at}</td>
                 </tr>
               ))}
           </tbody>

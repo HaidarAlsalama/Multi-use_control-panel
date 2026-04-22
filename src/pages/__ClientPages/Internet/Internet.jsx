@@ -132,7 +132,7 @@ export default function Internet() {
         <ClientContactForInternetModal
           isOpen={openContactModal}
           toggle={setOpenContactModal}
-          fields={["phone", "code"]}
+          fields={["phone", "speed"]}
           productKey={"Internet"}
           subKey={
             categoriesforContactIsSuccess

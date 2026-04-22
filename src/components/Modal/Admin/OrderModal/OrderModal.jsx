@@ -1,7 +1,8 @@
 import { useChangeStateOrder, useServiceOrderById } from "api/admin/order";
+import { useSuppliers } from "api/admin/supplier";
 import { Spinner } from "components";
 import ActionModal from "components/Modal/ActionModal/ActionModal";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function OrderModal({ isOpen, toggle, orderId }) {
   const {
@@ -15,6 +16,13 @@ export default function OrderModal({ isOpen, toggle, orderId }) {
     isPending: changeOrderStateIsPending,
     isSuccess: changeOrderStateIsSuccess,
   } = useChangeStateOrder(orderId);
+
+  const [payFrom, setPayFrom] = useState("app_cash");
+  const {
+    data: suppliersData,
+    isSuccess: suppliersSuccess,
+    isLoading: suppliersLoading,
+  } = useSuppliers();
 
   useEffect(() => {
     if (changeOrderStateIsSuccess) toggle(false);
@@ -133,6 +141,24 @@ export default function OrderModal({ isOpen, toggle, orderId }) {
                 </span>
               </div>
 
+              {/* {currentOrder.data.purchase_total != null &&
+                currentOrder.data.purchase_total !== "" && (
+                  <div className="flex flex-col gap-1 mt-2">
+                    <span className="text-sm font-medium text-gray-500 dark:text-gray-300">
+                      إجمالي سعر الشراء
+                    </span>
+                    <span
+                      className="text-lg font-bold text-gray-700 dark:text-white"
+                      dir="ltr"
+                    >
+                      {Number(currentOrder.data.purchase_total).toLocaleString()}{" "}
+                      <span className="text-sm text-yellow-600 font-extrabold">
+                        {currentOrder.data.currency}
+                      </span>
+                    </span>
+                  </div>
+                )} */}
+
               {currentOrder.data?.name_external_resource && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="flex flex-col gap-1">
@@ -204,7 +230,7 @@ export default function OrderModal({ isOpen, toggle, orderId }) {
                 {/* Header */}
                 <div className={""}>
                   <label className="text-sm font-medium dark:text-white text-gray-700">
-                    المورد
+                    طريقة الدفع
                   </label>
                   <span className="text-red-600 font-bold dark:text-green-600">
                     *
@@ -212,14 +238,10 @@ export default function OrderModal({ isOpen, toggle, orderId }) {
                   <select
                     name="pay_from"
                     className="block disabled:bg-gray-200 w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    // // onChange={(e) => onChange(e.target.value)}
-                    // defaultValue={currentOrder.data.state}
+                    value={payFrom}
+                    onChange={(e) => setPayFrom(e.target.value)}
                   >
-                    <option
-                      selected
-                      value={"app_cash"}
-                      className="text-yellow-500"
-                    >
+                    <option value={"app_cash"} className="text-yellow-500">
                       الحساب الشخصي
                     </option>
                     <option value={"supplier"} className="text-yellow-500">
@@ -227,6 +249,30 @@ export default function OrderModal({ isOpen, toggle, orderId }) {
                     </option>
                   </select>
                 </div>
+                {payFrom === "supplier" && (
+                  <div className={""}>
+                    <label className="text-sm font-medium dark:text-white text-gray-700">
+                      اختر المورد
+                    </label>
+                    <span className="text-red-600 font-bold dark:text-green-600">
+                      *
+                    </span>
+                    <select
+                      name="supplier_id"
+                      className="block disabled:bg-gray-200 w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                      required
+                      disabled={suppliersLoading || !suppliersSuccess}
+                    >
+                      <option value="">اختر المورد</option>
+                      {suppliersSuccess &&
+                        (suppliersData?.data || []).map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {s.name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                )}
                 <div className={""}>
                   <label className="text-sm font-medium dark:text-white text-gray-700">
                     حالة الطلب

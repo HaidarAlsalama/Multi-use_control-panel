@@ -74,7 +74,7 @@ const cards = [
     permission: "view_banks",
   },
   {
-    title: "عمليات شحن الرصيد",
+    title: "الدفعات وتغذيه الحسابات",
     description: "إدارة عمليات الشحن والمعاملات المالية",
     url: "/dashboard/charge-balance",
     icon: FcDonate,

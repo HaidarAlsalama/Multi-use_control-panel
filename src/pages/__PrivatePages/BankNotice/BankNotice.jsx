@@ -8,6 +8,7 @@ import { useState } from "react";
 import { RiFileExcel2Line } from "react-icons/ri";
 import { TiInfoLarge } from "react-icons/ti";
 import * as XLSX from "xlsx";
+import { formatTotalAfterDisplay } from "utils/transactionBalance";
 
 export default function BankNotice() {
   const [isOpenPaymentInfoModal, setIsOpenPaymentInfoModal] = useState(false);
@@ -45,6 +46,7 @@ export default function BankNotice() {
         "المبلغ قبل العملية": Number(
           item.total_before_operation
         ).toLocaleString(),
+        "بعد العملية": formatTotalAfterDisplay(item),
         الملاحظات: item.notes,
         "تاريخ الإنشاء": item.created_at,
         الحالة:
@@ -153,6 +155,9 @@ export default function BankNotice() {
               <th scope="col" className="px-4 py-2 text-nowrap">
                 المبلغ قبل العملية
               </th>
+              <th scope="col" className="px-4 py-2 text-nowrap">
+                بعد العملية
+              </th>
 
               <th scope="col" className="px-4 py-2 text-nowrap">
                 ملاحظات
@@ -192,6 +197,12 @@ export default function BankNotice() {
                   </td>
                   <td className="px-4 py-2 text-nowrap" dir="ltr">
                     {Number(item.total_before_operation).toLocaleString()}{" "}
+                    <span style={{ fontSize: "9px" }} className="text-blue-400">
+                      {item.currency_customer}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 text-nowrap" dir="ltr">
+                    {formatTotalAfterDisplay(item)}{" "}
                     <span style={{ fontSize: "9px" }} className="text-blue-400">
                       {item.currency_customer}
                     </span>

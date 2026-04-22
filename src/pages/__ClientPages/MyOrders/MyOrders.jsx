@@ -93,7 +93,7 @@ export default function MyOrders() {
               </div>
 
               {/* تفاصيل المبالغ بتنسيق عصري */}
-              <div className="space-y-4 mb-6">
+              <div className="space-y-2 mb-4">
                 <div className="flex justify-between items-end">
                   <span className="text-xs text-gray-500 dark:text-gray-400 font-medium italic">
                     {item.service}
@@ -107,6 +107,39 @@ export default function MyOrders() {
                     </span>
                   </div>
                 </div>
+
+                {Array.isArray(item.fields) && item.fields.length > 0 && (
+                  <div
+                    dir="rtl"
+                    className="space-y-1 rounded-lg bg-white/40 dark:bg-white/5 px-2 py-1.5 border border-gray-100/80 dark:border-white/5"
+                  >
+                    {item.fields.map((field, idx) => {
+                      const hasValue =
+                        field.value != null &&
+                        String(field.value).trim() !== "";
+
+                      return !hasValue ? null : (
+                        <div
+                          key={`${item.id}-field-${idx}`}
+                          className="flex flex-col gap-0 text-[11px] leading-tight"
+                        >
+                          <span className="text-gray-400 dark:text-gray-500 font-semibold">
+                            {field.name} :{" "}
+                            <span
+                              className={
+                                hasValue
+                                  ? "text-gray-800 dark:text-gray-100 font-medium break-words"
+                                  : "text-gray-400 dark:text-gray-600 italic"
+                              }
+                            >
+                              {hasValue ? field.value : "—"}
+                            </span>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
 
                 <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
               </div>

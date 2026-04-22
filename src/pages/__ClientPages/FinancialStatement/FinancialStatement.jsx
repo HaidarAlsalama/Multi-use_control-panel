@@ -9,6 +9,8 @@ import LogoSpinner from "components/Spinner/LogoSpinner";
 import { useEffect, useState } from "react";
 import { FaCheck, FaClock, FaTimes } from "react-icons/fa"; // أيقونات من FontAwesome
 import { SlCalender } from "react-icons/sl";
+import { formatTotalAfterDisplay } from "utils/transactionBalance";
+
 export default function FinancialStatement() {
   const [openMyFinancialStatementModal, setOpenMyFinancialStatementModal] =
     useState(false);
@@ -146,15 +148,17 @@ export default function FinancialStatement() {
                   <SlCalender className="text-mainLight" />
                   <span>{item.created_at}</span>
                 </div>
-                <div className="flex flex-col items-center gap-2 text-gray-500">
-                  الرصيد قبل:
-                  <div className="text-left">
-                    <span className="text-lg font-bold text-gray-800 dark:text-white leading-none">
-                      {Number(item.total_before_operation).toLocaleString()}
-                    </span>
-                    <span className="text-[10px] text-mainLight font-bold mr-1">
-                      ل.س
-                    </span>
+                <div className="flex flex-wrap items-end justify-end gap-4 text-gray-500">
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-xs">بعد العملية:</span>
+                    <div className="text-left">
+                      <span className="text-lg font-bold text-gray-800 dark:text-white leading-none">
+                        {formatTotalAfterDisplay(item)}
+                      </span>
+                      <span className="text-[10px] text-mainLight font-bold mr-1">
+                        ل.س
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

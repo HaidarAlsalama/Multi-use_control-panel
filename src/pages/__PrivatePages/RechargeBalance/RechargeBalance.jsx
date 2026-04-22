@@ -7,6 +7,7 @@ import AddMoney from "components/Modal/Admin/FinancialStatementModal/AddMoney";
 import PaymentInfModal from "components/Modal/Admin/PaymentInfModal/PaymentInfModal";
 import useParam from "Hooks/useParam";
 import { useState } from "react";
+import { formatTotalAfterDisplay } from "utils/transactionBalance";
 import { RiFileExcel2Line } from "react-icons/ri";
 import { TiInfoLarge } from "react-icons/ti";
 // import * as XLSX from "xlsx";
@@ -74,7 +75,7 @@ export default function RechargeBalance() {
   //   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
 
   //   // كتابة الملف إلى Excel
-  //   XLSX.writeFile(workbook, `عمليات شحن الرصيد.xlsx`);
+  //   XLSX.writeFile(workbook, `الدفعات وتغذيه الحسابات.xlsx`);
   // };
 
   return (
@@ -151,6 +152,9 @@ export default function RechargeBalance() {
               <th scope="col" className="px-4 py-2 text-nowrap">
                 المبلغ قبل العملية
               </th>
+              <th scope="col" className="px-4 py-2 text-nowrap">
+                بعد العملية
+              </th>
 
               <th scope="col" className="px-4 py-2 text-nowrap">
                 ملاحظات
@@ -188,6 +192,12 @@ export default function RechargeBalance() {
                   </td>
                   <td className="px-4 py-2 text-nowrap " dir="ltr">
                     {Number(item.total_before_operation).toLocaleString()}{" "}
+                    <span style={{ fontSize: "9px" }} className="text-blue-400">
+                      {item.currency_customer}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 text-nowrap " dir="ltr">
+                    {formatTotalAfterDisplay(item)}{" "}
                     <span style={{ fontSize: "9px" }} className="text-blue-400">
                       {item.currency_customer}
                     </span>

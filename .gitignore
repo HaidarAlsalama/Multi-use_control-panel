@@ -27,3 +27,4 @@ yarn-error.log*
 backup_1.zip
 backup_2.zip
 backup_3.zip
+.git.frontend-backup/

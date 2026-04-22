@@ -9,9 +9,47 @@ import FinancialStatmentInfoModal from "components/Modal/Admin/FinancialStatemen
 import Guard from "components/PrivateLayoutPages/Guard/Guard";
 import useParam from "Hooks/useParam";
 import { useState } from "react";
+import { formatTotalAfterDisplay } from "utils/transactionBalance";
 import { FiKey, FiTrash2 } from "react-icons/fi";
 import { TbUserDollar } from "react-icons/tb";
 import { TiInfoLarge } from "react-icons/ti";
+
+/** حقول الطلب (كمية، كود، ملاحظات…) من الـ API */
+function OrderFieldsBlock({ order }) {
+  const raw = order?.field;
+  if (!raw || typeof raw !== "object") return null;
+  const entries = Object.values(raw).filter(
+    (f) => f && typeof f === "object" && f.name != null,
+  );
+  if (!entries.length) return null;
+
+  return (
+    <div dir="rtl" className="flex mt-1 ">
+      <div className="flex gap-2 justify-end text-xs text-gray-600 dark:text-gray-400">
+        {entries.map((f) => {
+          const hasValue = f.value != null && String(f.value).trim() !== "";
+          if (hasValue)
+            return (
+              <div
+                key={f.fieldId ?? f.name}
+                className="inline-flex max-w-full items-baseline gap-x-1.5 gap-y-0.5 rounded-lg border border-gray-200/90 bg-gray-50 px-1 py-0.5 dark:border-gray-600/80 dark:bg-gray-800/80"
+              >
+                <span className="shrink-0 font-semibold text-gray-700 dark:text-gray-300">
+                  {f.name}:
+                </span>
+                <span
+                  dir="auto"
+                  className={`min-w-0 break-words ${hasValue ? "text-gray-800 dark:text-gray-100" : "italic text-gray-400 dark:text-gray-500"}`}
+                >
+                  {hasValue ? f.value : "—"}
+                </span>
+              </div>
+            );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function FinancialStatement() {
   const customerId = useParam("customerId");
@@ -259,17 +297,21 @@ export default function FinancialStatement() {
                 #
               </th>
               <th scope="col" className="px-4 py-2 text-nowrap">
-                المبلغ
-              </th>
-              <th scope="col" className="px-4 py-2 text-nowrap">
-                المبلغ قبل العملية
+                البيان
               </th>
               <th scope="col" className="px-4 py-2 text-nowrap">
                 نوع العملية
               </th>
               <th scope="col" className="px-4 py-2 text-nowrap">
-                البيان
+                المبلغ
               </th>
+              {/* <th scope="col" className="px-4 py-2 text-nowrap">
+                المبلغ قبل العملية
+              </th> */}
+              <th scope="col" className="px-4 py-2 text-nowrap">
+                الرصيد بعد العملية
+              </th>
+
               <th scope="col" className="px-4 py-2 text-nowrap">
                 تاريخ الإنشاء
               </th>
@@ -293,19 +335,13 @@ export default function FinancialStatement() {
                   key={index}
                 >
                   <td className="px-4 py-2 text-nowrap">{item.id} </td>
-                  <td
-                    className={`px-4 py-2 ${
-                      item.amount > 0
-                        ? "text-green-500 dark:text-green-400"
-                        : item.amount < 0
-                          ? "text-red-500 dark:text-red-400"
-                          : ""
-                    }`}
-                  >
-                    {Number(item.amount).toLocaleString()}
-                  </td>
                   <td className="px-4 py-2 ">
-                    {Number(item.total_before_operation).toLocaleString()}
+                    <h5 className="min-w-36">
+                      <div className="min-w-56 m-auto">
+                        {item.description || "- - - -"}
+                        <OrderFieldsBlock order={item.order} />
+                      </div>
+                    </h5>
                   </td>
                   <td className="px-4 py-2 ">
                     <span className="font-bold block m-auto text-xs p-1 rounded-lg w-20 bg-gray-200 text-gray-600 text-nowrap dark:bg-gray-600 dark:text-gray-300">
@@ -322,14 +358,36 @@ export default function FinancialStatement() {
                                 : "- - -"}
                     </span>
                   </td>
-                  <td className="px-4 py-2 ">
-                    <h5 className="min-w-36">
-                      <div className="min-w-56 m-auto">
-                        {item.description || "- - - -"}
-                      </div>
-                    </h5>
+                  <td
+                    className={`px-4 py-2 ${
+                      item.order_type === "refund"
+                        ? "text-blue-600 dark:text-blue-400 font-medium"
+                        : item.amount > 0
+                          ? "text-green-500 dark:text-green-400"
+                          : item.amount < 0
+                            ? "text-red-500 dark:text-red-400"
+                            : ""
+                    }`}
+                  >
+                    {Number(item.amount).toLocaleString()}
                   </td>
-                  <td className="px-4 py-2 text-nowrap">{item.created_at}</td>
+                  {/* <td className="px-4 py-2 ">
+                    {Number(item.total_before_operation).toLocaleString()}
+                  </td> */}
+                  <td className="px-4 py-2 ">
+                    {formatTotalAfterDisplay(item)}
+                  </td>
+
+                  <td className="px-4 py-2 ">
+                    <div className="flex flex-col items-center">
+                      <span className="text-nowrap">
+                        {item.created_at.split(" ")[0]}
+                      </span>
+                      <span className="text-nowrap">
+                        {item.created_at.split(" ")[1]}
+                      </span>
+                    </div>
+                  </td>
                   <td className="px-4 py-2 ">
                     <span
                       className={`font-semibold block m-auto text-xs p-1 rounded-lg w-14 ${

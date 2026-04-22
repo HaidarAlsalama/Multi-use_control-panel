@@ -5,6 +5,7 @@ import FinancialStatement from "pages/__ClientPages/FinancialStatement/Financial
 import Games from "pages/__ClientPages/Games/Games";
 import Home from "pages/__ClientPages/Home/Home";
 import Internet from "pages/__ClientPages/Internet/Internet";
+import ContactsBackup from "pages/__ClientPages/ContactsBackup/ContactsBackup";
 import MyOrders from "pages/__ClientPages/MyOrders/MyOrders";
 import MyPayments from "pages/__ClientPages/MyPayments/MyPayments";
 import Product from "pages/__ClientPages/Product/Product";
@@ -37,6 +38,7 @@ const routes = [
   { url: "/financial-statement", component: <FinancialStatement /> },
   { url: "/my-payments", component: <MyPayments /> },
   { url: "/my-orders", component: <MyOrders /> },
+  { url: "/contacts-backup", component: <ContactsBackup /> },
 
   { url: "/change-pin", component: <ChangePIN /> },
   { url: "/verify-pin", component: <VerifyPin /> },

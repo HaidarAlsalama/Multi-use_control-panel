@@ -85,34 +85,41 @@ const listLinks = [
     ],
   },
   {
-    title: "البنوك وشحن الرصيد",
-    url: "/dashboard",
-    icon: FcMoneyTransfer,
+    title: "الدفعات وتغذيه الحسابات",
+    url: "/dashboard/charge-balance",
+    icon: GrTransaction,
     role: ["admin"],
-    type: "list",
-    permission: ["view_banks"],
-    content: [
-      // {
-      //   title: "البنوك",
-      //   url: "/dashboard/banks",
-      //   icon: FaBuildingColumns,
-      //   count: 0,
-      //   permission: "view_banks",
-      // },
-      // {
-      //   title: "الاشعارات البنكية",
-      //   url: "/dashboard/bank-notice",
-      //   icon: IoReceiptSharp,
-      //   count: 0,
-      // },
-      {
-        title: "عمليات شحن الرصيد",
-        url: "/dashboard/charge-balance",
-        icon: GrTransaction,
-        count: 0,
-      },
-    ],
+    permission: "view_banks",
   },
+  // {
+  //   title: "البنوك وشحن الرصيد",
+  //   url: "/dashboard",
+  //   icon: FcMoneyTransfer,
+  //   role: ["admin"],
+  //   type: "list",
+  //   permission: ["view_banks"],
+  //   content: [
+  //     // {
+  //     //   title: "البنوك",
+  //     //   url: "/dashboard/banks",
+  //     //   icon: FaBuildingColumns,
+  //     //   count: 0,
+  //     //   permission: "view_banks",
+  //     // },
+  //     // {
+  //     //   title: "الاشعارات البنكية",
+  //     //   url: "/dashboard/bank-notice",
+  //     //   icon: IoReceiptSharp,
+  //     //   count: 0,
+  //     // },
+  //     {
+  //       title: "الدفعات وتغذيه الحسابات",
+  //       url: "/dashboard/charge-balance",
+  //       icon: GrTransaction,
+  //       count: 0,
+  //     },
+  //   ],
+  // },
   {
     title: "التصنيفات",
     url: "/dashboard/categories",
@@ -128,7 +135,7 @@ const listLinks = [
     permission: "view_products",
   },
   {
-    title: "الطلبات",
+    title: "طلبات الزبائن",
     url: "/dashboard/services-orders",
     icon: FcPaid,
     permission: ["view_orders"],
@@ -154,6 +161,12 @@ const listLinks = [
     icon: FcBusinessman,
     role: ["admin"],
     // permission: "view_suppliers",
+  },
+  {
+    title: "الأرباح",
+    url: "/dashboard/products-profit",
+    icon: FcApproval,
+    role: ["admin"],
   },
 ];
 

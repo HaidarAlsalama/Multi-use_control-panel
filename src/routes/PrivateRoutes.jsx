@@ -70,13 +70,23 @@ const SupplierById = React.lazy(
 const Balances = React.lazy(
   () => import("pages/__PrivatePages/Balances/Balances"),
 );
+const Ledger = React.lazy(() => import("pages/__PrivatePages/Ledger/Ledger"));
 const Agents = React.lazy(() => import("pages/__PrivatePages/Agents/Agents"));
 const Ads = React.lazy(() => import("pages/__PrivatePages/Ads/Ads"));
+const ProductsProfit = React.lazy(
+  () => import("pages/__PrivatePages/ProductsProfit/ProductsProfit"),
+);
 
 const routes = [
   { url: "/", component: <Dashboard />, permission: "" },
   { url: "/admin-box", component: <AdminBox />, permission: "" },
   { url: "/balances", component: <Balances />, permission: "" },
+  { url: "/ledger", component: <Ledger />, permission: "" },
+  {
+    url: "/products-profit",
+    component: <ProductsProfit />,
+    permission: "view_products",
+  },
   { url: "/settings", component: <Settings /> },
   { url: "/settings/exchange-rate", component: <ExchangeRate /> },
   { url: "/settings/contact-us", component: <ContactUs /> },

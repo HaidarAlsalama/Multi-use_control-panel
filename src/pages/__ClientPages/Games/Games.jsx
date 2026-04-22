@@ -11,6 +11,7 @@ import CustomInput from "components/ClientLayoutPages/ClientInputField/CustomInp
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ClientActionModal from "components/Modal/Client/ClientActionModal/ClientActionModal";
+import { createAlert } from "components/Alert/Alert";
 
 export default function Games() {
   const gameId = useParam("gameId");
@@ -71,6 +72,9 @@ const NestedNavigation = ({ title }) => {
 };
 
 const ProductsByTag = ({ products = [], setSs, setCurrentId }) => {
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
   return (
     <div className="flex flex-col gap-8">
       {products?.length > 0 && (
@@ -79,8 +83,12 @@ const ProductsByTag = ({ products = [], setSs, setCurrentId }) => {
             <div
               key={product.id}
               onClick={() => {
-                setSs(true);
-                setCurrentId(product.id);
+                if (product.is_available) {
+                  setSs(true);
+                  setCurrentId(product.id);
+                } else {
+                  createAlert("error", "هذا المنتج غير متوفر حالياً");
+                }
               }}
               className="px-2 py-4 bg-black/10 hover:scale-105 h-fit duration-300 shadow-md dark:bg-white/10 rounded-3xl border cursor-pointer border-green-700"
             >
@@ -92,7 +100,7 @@ const ProductsByTag = ({ products = [], setSs, setCurrentId }) => {
               </h3>
 
               <h5 className="font-bold text-xs text-nowrap text-center flex gap-1 items-center justify-center text-green-700 mt-2">
-                {product.price.toLocaleString()}{" "}
+                {product.price.toLocaleString("en-US")}{" "}
                 <h6 className="text-[10px]">ل.س</h6>
               </h5>
             </div>
@@ -279,14 +287,14 @@ const ProductDetailsModal = ({ isOpen, toggle, currentId }) => {
                 {currency === "USD"
                   ? Math.ceil(total * 1000) / 1000
                   : currency === "S.P"
-                    ? parseFloat(total).toLocaleString()
+                    ? parseFloat(total).toLocaleString("en-US")
                     : ""}
                 <span className="text-sm ml-1">{currency}</span>
               </span>
             </div>
             <span className="block mt-1 text-sm text-green-500">
               {total
-                ? tafqeet(parseFloat(total).toLocaleString()) + " ل.س"
+                ? tafqeet(parseFloat(total).toLocaleString("en-US")) + " ل.س"
                 : ""}
             </span>
             {/* -------- Availability -------- */}

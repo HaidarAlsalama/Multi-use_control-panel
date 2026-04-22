@@ -7,7 +7,7 @@ import { RiApps2Line, RiComputerLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { setBalance } from "store/reducers/balanceReducer";
 
-import { FileText, Home, KeyRound, LogOut, ShoppingCart } from "lucide-react";
+import { FileText, Home, KeyRound, LogOut, ShoppingCart, Cloud } from "lucide-react";
 import { FiKey } from "react-icons/fi";
 
 const links = [
@@ -26,6 +26,11 @@ const links = [
     url: "/my-account/financial-statement",
     icon: <FileText className="w-5 h-5 text-purple-500" />,
     title: "البيانات المالية", // بدل "البيان المالي"
+  },
+  {
+    url: "/my-account/contacts-backup",
+    icon: <Cloud className="w-5 h-5 text-sky-500" />,
+    title: "نسخ الحافظة",
   },
 
   {

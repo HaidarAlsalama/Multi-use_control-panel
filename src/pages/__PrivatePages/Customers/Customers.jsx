@@ -190,11 +190,11 @@ export default function Customers() {
                   <td className="p-1">
                     <div className="flex gap-2 justify-center items-center p-1">
                       <Guard permission={"edit_customer"}>
-                        <ToggleStateButton
+                        {/* <ToggleStateButton
                           type={"users"}
                           currentState={item.state}
                           id={item.id}
-                        />
+                        /> */}
                         <button
                           className="btn btn-primary text-xs_ !p-1.5"
                           onClick={() => {

@@ -7,6 +7,7 @@ import { GiSandsOfTime, GiTakeMyMoney } from "react-icons/gi";
 import { GrCart } from "react-icons/gr";
 import { MdNumbers } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
+import { formatTotalAfterDisplay } from "utils/transactionBalance";
 import ClientActionModal from "../ClientActionModal/ClientActionModal";
 
 /* ================= Popup Image ================= */
@@ -141,6 +142,14 @@ export default function MyFinancialStatementModal({
                   value={`${Number(
                     data.data.total_before_operation,
                   ).toLocaleString()} ${data.data.currency_customer}`}
+                />
+                <GlassRow
+                  label="الرصيد بعد العملية"
+                  value={
+                    formatTotalAfterDisplay(data.data) === "—"
+                      ? "—"
+                      : `${formatTotalAfterDisplay(data.data)} ${data.data.currency_customer ?? ""}`.trim()
+                  }
                 />
               </div>
             </div>

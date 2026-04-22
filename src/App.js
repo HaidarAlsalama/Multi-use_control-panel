@@ -5,7 +5,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import ClientRoutes from "routes/ClientRoutes";
 import PublicRoutes from "routes/PublicRoutes";
 import "./App.css";
-import PrivateRoutes from "routes/PrivateRoutes";
 
 
 function App() {
@@ -23,7 +22,7 @@ function App() {
     <>
       {/* <IdleTimer /> */}
       <Routes>
-        <Route path="/dashboard/*" element={<PrivateRoutes />} />
+        {/* <Route path="/dashboard/*" element={<PrivateRoutes />} /> */}
         <Route path="/my-account/*" element={<ClientRoutes />} />
         <Route path="/*" element={<PublicRoutes />} />
       </Routes>

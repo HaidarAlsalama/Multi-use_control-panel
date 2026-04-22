@@ -308,7 +308,7 @@ export default function ClientContactModal({
 
                 {/* الأزرار */}
                 <div className="flex gap-2 ml-3 opacity-80 group-hover:opacity-100 transition">
-                  <button
+                  {/* <button
                     onClick={() => handleEdit(c)}
                     className="h-10 w-10 flex items-center justify-center 
           rounded-xl 
@@ -316,16 +316,16 @@ export default function ClientContactModal({
           text-white shadow-md transition"
                   >
                     <Edit2 className="w-4 h-4" />
-                  </button>
+                  </button> */}
 
                   <button
                     onClick={() => handleDelete(c.id)}
-                    className="h-10 w-10 flex items-center justify-center 
+                    className="h-8 w-8 flex items-center justify-center absolute top-0 left-0
           rounded-xl 
           bg-red-500/80 hover:bg-red-600
           text-white shadow-md transition"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    X
                   </button>
                 </div>
               </div>
